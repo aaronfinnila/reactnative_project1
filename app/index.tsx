@@ -1,36 +1,24 @@
 import { Text, View, Image, Button, Pressable } from "react-native";
-import  Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, } from 'react-native-reanimated';
+import  Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, withSpring } from 'react-native-reanimated';
 import { useState } from "react"
 import "../global.css";
 
 export default function Index() {
 
-  const sv = useSharedValue(10);
   const [num, setNum] = useState(0)
+  const [incClick, setIncClick] = useState(1)
 
-  const config = {
-    duration: 500,
-    easing: Easing.bezier(0.5, 0.01, 0, 1)
-  }
-
-  const style = useAnimatedStyle(() => {
-    return {
-      width: withTiming(sv.value, config),
-    }
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ translateX: num === 0 ? withSpring(0) : num % 2 === 0 && num > 0 ? withSpring(-20) : withSpring(20) }],
   })
-
+)
+  
   const buttonPressed = (): void => {
-    pressAnimation()
-    setNum(num+1)
-  }
-
-  const buttonReset = (): void => {
-    setNum(0)
-    sv.value = 10
+    setNum(num+1*incClick)
   }
   
-  const pressAnimation = (): void => {
-    sv.value = Math.random() * 350
+  const buttonReset = (): void => {
+    setNum(0)
   }
 
   return (
@@ -38,14 +26,11 @@ export default function Index() {
       <View>
         <Text className="text-5xl text-blue-500 leading-tight">sigma clicker</Text>
       </View>
-      <View className="mt-32">
-        <Pressable onPress={buttonPressed} style={({ pressed }) => [
-          { opacity: pressed ? 0.7 : 1},
-          { transform: [{ scale: pressed ? 0.95 : 1 }] },
-        ]}>
-          <Image source={require('../assets/images/gutsucatsu.jpg')}></Image>
+      <Animated.View style={[animatedStyles, {marginLeft:0}]}>
+        <Pressable onPress={buttonPressed}>
+          <Image source={require('../assets/images/gutsucatsu.jpg')}/>
         </Pressable>
-      </View>
+      </Animated.View>
       <View className="mt-12">
           <Text className="text-5xl text-blue-500">{num}</Text>
       </View>
