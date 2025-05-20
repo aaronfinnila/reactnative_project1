@@ -31,7 +31,7 @@ export default function Shop() {
 
   const passiveItems: ItemType[] = [
     {
-      name: "fork",
+      name: "hammer",
       incNum: 1,
       cost: 50,
     },
@@ -52,9 +52,9 @@ export default function Shop() {
         <View className="items-center">
           <Text className="text-7xl text-blue-500">shop</Text>
           <Text className="text-4xl text-blue-500 mt-12 mb-8">active items</Text>
-            {activeItems.map(item1 => <Item item={item1} key={item1.name}/>)}
+            {activeItems.map(item1 => <Item item={item1} key={item1.name} itemClass="active"/>)}
           <Text className="text-4xl text-blue-500 mt-12 mb-8">passive items</Text>
-            {passiveItems.map(item1 => <Item item={item1} key={item1.name}/>)}
+            {passiveItems.map(item1 => <Item item={item1} key={item1.name} itemClass="passive"/>)}
         </View>
     </ScrollView>
   )

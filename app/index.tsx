@@ -1,13 +1,14 @@
 import { Text, View, Image, Button, Pressable } from "react-native";
 import  Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, withSpring } from 'react-native-reanimated';
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { useCounter } from "../components/CounterContext";
 import "../global.css";
 
 export default function Index() {
 
-  const [num, setNum] = useState(0);
-  const [incAct, setIncAct] = useState(1);
-  const [incPas, setIncPas] = useState(0);
+  const {num, setNum} = useCounter();
+  const {incAct, setIncAct} = useCounter();
+  const {incPas, setIncPas} = useCounter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,7 +16,7 @@ export default function Index() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [incPas]);
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateX: num === 0 ? withSpring(0) : num % 2 === 0 && num > 0 ? withSpring(-20) : withSpring(20) }],
