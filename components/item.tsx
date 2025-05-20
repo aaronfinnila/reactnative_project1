@@ -1,6 +1,7 @@
 import { View, Text, ScrollView } from "react-native";
 import { ItemType } from "@/app/shop";
 import { Ionicons } from "@expo/vector-icons";
+import { setIncPas, setIncAct } from "../app/index"
 
 const Item = ({ item }: { item: ItemType }) => {
 

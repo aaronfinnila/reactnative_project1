@@ -1,12 +1,21 @@
 import { Text, View, Image, Button, Pressable } from "react-native";
 import  Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, withSpring } from 'react-native-reanimated';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "../global.css";
 
 export default function Index() {
 
-  const [num, setNum] = useState(0)
-  const [incClick, setIncClick] = useState(1)
+  const [num, setNum] = useState(0);
+  const [incAct, setIncAct] = useState(1);
+  const [incPas, setIncPas] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNum(prevCount => prevCount + incPas);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ translateX: num === 0 ? withSpring(0) : num % 2 === 0 && num > 0 ? withSpring(-20) : withSpring(20) }],
@@ -14,11 +23,11 @@ export default function Index() {
 )
   
   const buttonPressed = (): void => {
-    setNum(num+1*incClick)
+    setNum(num+1*incAct);
   }
   
   const buttonReset = (): void => {
-    setNum(0)
+    setNum(0);
   }
 
   return (
