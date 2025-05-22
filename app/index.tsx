@@ -3,6 +3,7 @@ import  Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, withSp
 import { useState, useEffect } from "react";
 import { useCounter } from "../components/CounterContext";
 import "../global.css";
+import { Audio } from "expo-av";
 
 export default function Index() {
 
@@ -25,6 +26,12 @@ export default function Index() {
   
   const buttonPressed = (): void => {
     setNum(num+1*incAct);
+    const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+    require('./assets/sound.mp3')// change sound file
+    );
+    await sound.playAsync();
+    }
   }
   
   const buttonReset = (): void => {
@@ -34,7 +41,7 @@ export default function Index() {
   return (
     <View className="items-center">
       <View>
-        <Text className="text-5xl text-blue-500 leading-tight">sigma clicker</Text>
+        <Text className="text-5xl text-blue-500 leading-tight">Σ clicker</Text>
       </View>
       <Animated.View style={[animatedStyles, {marginLeft:0}]}>
         <Pressable onPress={buttonPressed}>
@@ -43,6 +50,10 @@ export default function Index() {
       </Animated.View>
       <View className="mt-12">
           <Text className="text-5xl text-blue-500">{num}</Text>
+      </View>
+      <View className="mt-24">
+        <Text className="text-blue-500">Σ per second: {incPas}</Text>
+        <Text className="text-blue-500">Σ per click: {incAct}</Text>
       </View>
       <View className="mt-48">
         <Button title="reset" onPress={buttonReset}/>
