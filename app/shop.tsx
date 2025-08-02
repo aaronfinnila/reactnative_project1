@@ -27,23 +27,33 @@ export default function Shop() {
       incNum: 4,
       cost: 750,
     },
+    {
+      name: "hammer",
+      incNum: 6,
+      cost: 1500,
+    }
   ]
 
   const passiveItems: ItemType[] = [
     {
-      name: "hammer",
+      name: "clock",
       incNum: 1,
       cost: 50,
     },
     {
-      name: "foot",
+      name: "balloon",
       incNum: 2,
       cost: 200,
     },
     {
-      name: "key",
+      name: "calendar",
       incNum: 4,
       cost: 750,
+    },
+    {
+      name: "car",
+      incNum: 10,
+      cost: 1500,
     },
   ]
   
